@@ -1,0 +1,865 @@
+*******************************************************
+Fundamentals of the Databricks Lakehouse Platform
+*******************************************************
+1. The history of Data Management Platforms
+
+1980's Business need more than relational databases
+
+Data warehouse 
+
+	- Pros: 
+			- Business intelligence (BI)
+			- Analytics
+			- Structured & clean data
+			- Predefined schemas
+	- Cons:
+			- No support for semi or unstructured data
+			- Inflexible schemas
+			- Struggled with volume and velocity upticks
+			- Long processing time
+		
+2000s Big data explosion
+
+Data Lake
+
+	- Pros:
+			- Flexible data storage
+			- Streaming support
+			- Cost efficient in the cloud
+			- Support for AI and Machine Learning
+	- Cons:
+			- No transactional support
+			- Poor data reliability
+			- Slow analysis performance
+			- Data governance concerns
+			- Data warehouse still needed
+
+Business required two disparate, incompatible data platforms
+
+
+2021 Advent of the lakehouse architecture paradigm
+
+The Data Lakehouse -> open, unified foundation for all your data, analytics and AI workloads
+
+Open Data Lake (All Raw data) ->
+unified data storage for reliability and sharing -> 
+Unified security, governance and cataloging -> 
+Data Science & AI, ETL & Real-time Analytics, Orchestration, Data Warehousing
+
+Key features:
+
+- Transaction support
+- Schema enforcement and governance
+- Data governance
+- BI support
+- Decouple storage from compute
+- Open storage formats
+- Support for diverse data types
+- Support for diverse workloads
+- End-to-end streaming
+
+
+2. What is the Databricks Lakehouse Platform?
+	Databricks and the Data Lakehouse platform
+
+
+ a- First generation platforms: Structured Data -> ETL -> Data Warehouses -> BI & Reports
+ 
+ b- Two tier architectures : Structured, semi-structured & unstructured data -> Data Lake -> ETL -> Data Warehouses -> BI, reports, data science, machine learning
+
+ c- Lakehouse platform: Structured, semi-structure & unstructured data -> Data Lake -> Metadata, caching and indexing layer -> ETL -> BI, reports, data science, machine learning
+
+
+- A reliable data platform to efficiently handle all data types
+- One security and governance approach for all data assets on all clouds
+- All ML, SQL, BI, and streaming use cases
+
+- Delta Lake -> Data reliability and performance
+- Unity Catalog -> Fine-grained governance for data and AI
+- Persona-based use cases
+
+- Simple -> unify your data warehousing and AI use cases on a single platform
+- Open -> Built on open source and o pen standards
+- Multicloud -> One consistent data platform across clouds
+
+3. Databricks Lakehouse Platform Architecture and Security Fundamentals
+	Data reliability and performance
+
+Problems encountered when using data lakes
+
+	- Lack of ACID transaction support
+	- Lack of schema enforcement
+	- Lack of integration with a data catalog
+	- Ineffective partitioning
+	- Too many small files
+
+Delta Lake
+
+	- ACID transaction guarantees
+	- Scalable data and metadata handling
+	- Audit history and time travel
+	- Schema enforcement and schema evolution
+	- Support for deletes, updates, and merges
+	- Unified streaming and batch data processing
+
+ - What is Photon?
+ 
+Photon is the next generation engine on the Databricks Lakehouse Platform that provides extremely fast query performance at low cost – from data ingestion,
+ETL, streaming, data science and interactive queries – directly on your data lake. Photon is compatible with Apache Spark™ APIs, 
+so getting started is as easy as turning it on – no code changes and no lock-in.
+
+Reported workloads impacted by Photon
+
+- SQL-based jobs
+- IoT use cases
+- Data privacy and compliance
+- Loading data into Delta and Parquet
+
+
+Lifecycle of a Photon query
+
+1 - Client: submit SQL
+2 - Parsing, Catalyst: analysis/planning/optimization scheduling (Spark driver JVM)
+3 - Execute task (Spark executors mixed JVM/Native)
+4 - Photon
+5 - Delta Lake
+
+4. Databricks Lakehouse Platform Architecture and Security Fundamentals
+	Unified governance and security
+
+Challenges to data and AI governance
+
+- Diversity of data and AI assets
+- Using two disparate and incompatible data platforms
+- Rise of multi-cloud adoption
+- Fragmented tool usage for data governance
+
+
+How the databricks Lakehouse Platform solves data and AI governance challenges?
+
+ - Unity Catalog
+ 
+	-  unified Access controls, user management and metastore for workspaces, separated Clusters SQL Endpoints
+ 
+ - Delta Sharing
+ 
+	- Secure, cheap, vendor agnostic, multicloud, open source
+	- table/dataframe abstraction, live data, predicate pushdown 
+	- object store bandwidth, zero compute cost, scalability
+ 
+	Benefits of Delta Sharing
+ 
+	- Open cross-platform sharing
+	- Share live data without copying it
+	- Centralized administration and governance
+	- Marketplace for data products
+	- Privacy-safe data clean rooms
+ 
+ 
+ - Divided security architecture -> Control and Data plane
+
+	- Control plane
+		
+		- Web application
+		- Configurations
+		- Notebooks repos, DBSQL
+		- Cluster manager
+		
+	Data plane
+		
+		- Cluster
+		- Data
+		- DBFS root
+
+ - User identity and access
+
+	- Table ACLs feature
+	- IAM instance profiles
+	- Securely stored access key
+	- The Secrets API
+
+ Data security:
+	
+			For data-at-rest encryption:
+		
+				- Control plane is encrypted
+				- Data plane supports local encryption
+				- Customers can use encrypted storage buckets
+				- Customers at some tiers can configure customer-managed keys for managed services
+			
+			For data-in-motion encryption:
+		
+				- Control plane <-> data plane is encrypted
+				- Offers optional intra-cluster encryption
+				- Customer code can be written to avoid unencrypted services (e.g. FTP)
+
+
+5. Databricks Lakehouse Platform Architecture and Security Fundamentals
+	Instant compute and serverless
+	
+	- Compute resource challenges
+
+		- Cluster creation is complicated
+		- Environment startup is slow
+		- Business cloud account limitations and resource options
+		- Long running clusters
+		- Over provisioning of resources
+		- Higher resource costs
+		- High admin overhead
+		- Unproductive users
+	
+
+	- Databricks Serverless SQL
+	
+		- Users -> increase productivity -> instant query execution, built-in connectors	
+		- Admins -> Reduce effort -> databricks optimally configures the cluster, manages updates to the VMs
+		- Finance -> Lower cost -> Reduce idle time, No over-provisioning
+		
+		- Managed Servers -> Always running server fleet - Patched and upgraded automatically
+		- Elastic -> Scale up and down automatically
+		- Instant Compute -> Allocation in seconds
+		- Secure -> Three layer isolation with data encryption
+		
+		
+6. Databricks Lakehouse Platform Architecture and Security Fundamentals
+	Introduction to lakehouse data management terminology
+
+	Databricks Unity Catalog
+	
+		- Unified governance for all data and AI assets
+		
+			- Centralized governance for data and AI
+			- Built-in data search and discovery
+			- Performance and scale
+			- Automated lineage for all workloads
+			- Integrated with your existing tools
+
+
+	- Metastore -> Catalog -> Schema -> Table (managed, external), View, Function -> three level namespace: catalog.schema.table
+	
+	
+	
+7. Supported Workloads on the Databricks Lakehouse Platform
+	Data warehousing
+	
+	- Data sources
+	- Data ingest - continuos, batch
+	- Open storage layer -> Unity Catalog -> Bronze raw -> ETL -> Silver staging -> ETL -> Gold DW/marts
+	- Data processing -> Truly decoupled, serverless, compute layer
+	- Data consumers -> SQL analytics, data science/ML, Data Sharing...
+	
+Key benefits of data warehousing with the Databricks Lakehouse Platform
+
+	- Best price/ performance
+	- Built-in governance
+	- A rich ecosystem
+	- Break down silos
+	
+8. Supported Workloads on the Databricks Lakehouse Platform
+	Data engineering
+
+Challenges for the data engineering workload:
+
+	- Complex data ingestion methods
+	- Support for data engineering principles
+	- Third-party orchestration tools
+	- Pipeline and architecture performance tuning
+	- Inconsistencies between data warehouse and data lake providers
+
+Key capabilities of data engineering on the lakehouse:
+
+	- Easy data ingestion
+	- Automated ETL pipelines
+	- Data quality checks
+	- Batch and streaming tuning
+	- Automatic recovery
+	- Data pipeline observability
+	- Simplified operations
+	- Scheduling and orchestration
+
+9. Supported Workloads on the Databricks Lakehouse Platform
+	Data streaming
+
+	Data streaming Use Cases
+	
+		- Real-Time Analytics -> analyze streaming data for instant insights and faster decisions
+		- Real-Time Machine Learning -> Train models on the freshest data. Score in real-time
+		- Real-Time Applications -> Embed automatic and real-time actions into business applications
+		
+
+	Top 3 differentiating capabilities for data streaming on the lakehouse
+
+		- Build streaming pipelines and applications faster
+		- Simplify operations with automation
+		- Unified governance for real time and historical data
+
+
+9. Supported Workloads on the Databricks Lakehouse Platform
+	Data science and machine learning
+		
+	Challenges to successful machine learning and AI endeavors
+
+	- Siloed and disparate data systems
+	- Complex experimentation environments
+	- Getting models to production
+	- Multiple tools available
+	- Experiments are hard to track
+	- Reproducing results is difficult
+	- ML is hard to deploy
+
+ - Compute Platform
+ 
+	Any ML workload optimized and accelerated
+	
+	Databricks Machine Learning Runtime
+	
+		- Optimized and preconfigured ML Frameworks
+		- Turnkey distributed ML
+		- Built-in AutoML
+		- GPU support out of the box
+
+
+*******************************
+Databricks Fundamentals test 
+*******************************
+	
+
+*******************************************************************************************************
+Databricks Data Intelligence Platform (update to the Fundamentals of the Databricks Lakehouse Platform)
+*******************************************************************************************************
+
+1. The history of Data Management Platforms
+
+1980's Business need more than relational databases
+
+Data warehouse 
+
+	- Pros: 
+			- Business intelligence (BI)
+			- Analytics
+			- Structured & clean data
+			- Predefined schemas
+	- Cons:
+			- No support for semi or unstructured data
+			- Inflexible schemas
+			- Struggled with volume and velocity upticks
+			- Long processing time
+		
+2000s Big data explosion
+
+Data Lake
+
+	- Pros:
+			- Flexible data storage
+			- Streaming support
+			- Cost efficient in the cloud
+			- Support for AI and Machine Learning
+	- Cons:
+			- No transactional support
+			- Poor data reliability
+			- Slow analysis performance
+			- Data governance concerns
+			- Data warehouse still needed
+
+
+2021 Advent of the lakehouse architecture paradigm
+
+The Data Lakehouse -> open, unified foundation for all your data
+
+Open Data Lake (All Raw data) ->
+unified data storage for reliability and sharing -> 
+Unified security, governance and cataloging -> 
+Data Science & AI, ETL & Real-time Analytics, Orchestration, Data Warehousing
+
+Key features:
+
+- Transaction support
+- Schema enforcement and governance
+- Data governance
+- BI support
+- Decouple storage from compute
+- Open storage formats
+- Support for diverse data types
+- Support for diverse workloads
+- End-to-end streaming
+
+
+2. What is the Databricks Data Intelligence (DI) Platform
+
+Data Lakehouse + Generative AI -> Data Intelligence Platform -> Democratize data + AI across your entire organization
+
+Open Data Lake (All Raw Data) 
+Delta Lake -> Unified data storage for reliability and sharing
+Unity Catalog -> Unified security, governance, and cataloging
+Data Intelligence Engine -> Use generative AI to understand the semantics of your data
+Data Science & AI -> Databricks AI
+ETL & Real-time analytics -> Delta Live Tables  
+Orchestration -> Workflows
+Data Warehousing -> Databricks SQL
+
+Main issues:
+
+ - Data, AI and governance are siloed
+ - Data privacy & control are challenged by AI
+ - Dependent on highly technical staff
+
+- Databricks AI: Create, tune and serve custom LLMs
+
+	GenAI
+		- Custom models
+		- Model serving
+		- RAG
+		
+	End-to-end AI
+		- MLOps (MLflow)
+		- AutoML
+		- Monitoring
+		- Governance
+
+Simple -> Natural language provides ease of use and efficiency for all
+Intelligent -> AI is integrated end-to-end to uniquely understand your data
+Private -> Custom models are easily built on your private data
+
+3. Databricks DI Platform Architecture and Security Fundamentals
+
+a. Platform architecture overview
+
+	- Delta lake -> Data layout is automatically optimized based on usage patterns
+	
+					- Predictive I/O
+					- Predictive Optimizations
+					- Liquid clustering
+					
+					- ACID transaction guarantees
+					- Scalable data and metadata handling
+					- Audit history and time travel
+					- Schema enforcement and schema evolution
+					- Support for deletes/updates/merges
+					- Unified streaming and batch data processing
+					
+					- Is compatible with Apache Spark
+					- Uses Delta Tables
+					- Has transactional log
+					- Is an open-source project
+					
+	- Unity Catalog -> Securely get insights in natural language
+		
+					- Context-aware search
+					- Auto describe tables and columns
+					- Automated lineage
+					- End-to-end observability and monitoring
+					- Sharing AI models
+					
+					- Unified view of the data and AI estate - > Discover, classify and organize at one place - Data federation - tag-based search
+					- Single permission model for data and AI -> Unifed interface - fine-graned access control - open interfaces
+					- AI-driven monitoring and reporting -> Proactive alerts - real-time data lineage - auto-generated dashboards - end-to-end view data flows
+					- Open data sharing and collaboration
+					
+					- User management - Access Controls - Data Lineage - Automated Monitoring - Auditing
+					- Data Discovery and Classification - Data Sharing
+					
+b. Data governance
+
+	- Key elements:
+					- Data cataloging
+					- Data classification
+					- Auditing data entitlements and access
+					- Data discovery
+					- Data sharing and collaboration
+					- Data lineage
+					- Data security
+					- Data quality
+					
+	- Complexity:
+					- Fragmented view of the data estate -> Reduced pace of innovation
+					- Multiple tools for access management -> Increased data breach risk, operational expenses
+					- Incomplete monitoring and visibility -> Non-compliance risk, reputational harm
+					- Lack of cross-platform data sharing -> Costly data sharing, untapped monetization
+
+
+
+	- Databricks data governance offerings
+					
+					- Unity Catalog -> unified governance and security
+						
+						-Unity Catalog decreases the complexity by:
+	
+								- Unified view of the data estate
+								- Single permissions model for data and AI
+								- AI powered monitoring and reporting
+								- Delta Sharing built in to the platform
+					
+					- Delta Sharing -> Sharing between organizations
+					- Databricks Marketplace -> Commercialization of data assets
+					- Databricks Cleanrooms -> Private, secure computing
+	
+	- Governance is simplified with intelligence
+	
+		- Context-aware search using AI-powered knowledge engine -> Discoverability made easy with AI
+		- AI automatically generates descriptions and comments -> AI automatically generates descriptions and comments
+		- Find data using natural language across the entire data estate
+		- Auto-capture real-time lineage -> track lineage 
+		- Automated, proactive and simplified detection of anomalies in data and models
+		- Achieve complete data and AI observability with operational intelligence
+	
+	- Delta sharing and Databricks Marketplace
+	
+		- Delta sharing:
+		
+			- Open cross-platform sharing
+			- Share live data without copying it
+			- Centralized administration and governance
+			- Marketplace for data products
+			- Privacy-safe data clean rooms	
+			
+			- Avoid verdor lock-in
+			- Share more than just data
+			- Open marketplace
+			- Scalable clean rooms - confidential collaboration on sensitive data
+			
+		- Databricks Marketplace -> open marketplace for all your data, analytics and AI
+								 -> Open for Databricks & non-Databricks users
+		
+			- Providers -> Reach users on any platform - Exchange more than data - Share data securely
+			- Consumers -> Discover more than just data - Evaluate data products faster - Avoid vendor lock-in
+
+
+		- Databricks Clean Room
+		
+			- Arbitraty Computation -> Run any computation in Python, SQL, R, Java, etc.
+			- Non data replication -> Delta sharing provides cross-region or cross-cloud sharing without replication
+			- Scale when you need it -> Easily scale to multiple collaborators on data of any size
+
+
+c. Security, reliability, and performance
+
+	- Security & reliability -> the control plane and the data plane
+	
+				- Control plane -> Web application - Configurations - Notebooks, repos, DBSQL - Cluster manager
+				- Data plane -> Clusters - Cloud storage - Data - DBFS root
+				
+		- User identity and access
+		
+			-> Table ACLs features
+			-> IAM instance profiles
+			-> Securely stored access key
+			-> The Secrets API
+
+		- Data security:
+	
+			For data-at-rest encryption:
+		
+				- Control plane is encrypted
+				- Data plane supports local encryption
+				- Customers can use encrypted storage buckets
+				- Customers at some tiers can configure customer-managed keys for managed services
+			
+			For data-in-motion encryption:
+		
+				- Control plane <-> data plane is encrypted
+				- Offers optional intra-cluster encryption
+				- Customer code can be written to avoid unencrypted services (e.g. FTP)
+				
+	- Performance
+			
+		- Serverless data plane - Databricks Serverless SQL
+	
+			- Increase productivity -> instant query execution - Built-in connectors
+			- Reduce effort -> databricks optimally configure the cluster, manages updates to the VMs
+			- Lower cost -> reduce idle time, no over-provisioning
+		
+			- Managed Servers -> Always running server fleet - Patched and upgraded automatically
+			- Elastic -> Scale up and down automatically
+			- Instant Compute -> Allocation in seconds
+			- Secure -> Three layer isolation with data encryption
+
+
+		- Photon -> next generation query engine, compatible with Spark API, increased speed for data ingestion, ETL, data science...
+	
+			- Reported workloads impacted by Photon:
+				
+					-> SQL-based jobs
+					-> IoT use cases
+					-> Data privacy and compliance
+					-> Loading data into Delta and Parquet
+
+d. The Data Intelligence Engine (oncoming)
+
+4. Supported Workloads on the Databricks DI Platform
+
+a. Data Warehousing (Databricks SQL)
+
+	- Text to SQL
+	- AI-driven queries
+	- AI-driven serverless computing scales for cost efficiency and peak performance
+	- AI-driven debugging and remediation
+
+	 - Data warehousing challenges:
+	 
+		- Resource misallocation
+		- Difficulty in scaling
+		- Higher operational costs
+	
+	- AI-powered Data warehousing for performance
+	
+		- Auto-tuning -> automatically optimizes writes and compacts storage
+		- Intelligent Workload Management -> leverages machine learning to efficiently route queries
+		- Predictive I/O -> delivers comparable performance to expensive search-optimized index automatically
+		
+	- Databricks Assistant in action for BI
+	
+		- Text-to-SQL Conversion
+		- Auto-Generates & Completes Code/Queries
+		- Problem Diagnosis & Resolution
+		- Unity Catalog Integration
+
+b. Orchestration
+
+	- Workflows
+	
+			- Intelligent ETL processing
+			- AI-driven debugging and remediation
+			- End-to-end observability and monitoring
+			- Broad ecosystem integration
+
+			- Intelligent pipeline triggering
+			- Automatic resource allocation
+			- Automatic checkpoint and recovery
+			- Automatic monitoring and alerting
+
+		Auto-optimized serverless compute for workflows
+		
+			- Fully-manged service for operational simplicity and reliability
+			- Optimized fast cluster and auto-scaling capabilities with no idle time for lower TCO
+			- Serverless setup is accessible to all users
+			
+	- Befenits of automated orchestration
+		
+		- Efficient triggers
+		- Optimal Resource Utilization
+		- Enhanced Reliability
+		- Proactive Issue Resolution and Monitoring
+
+c. ETL & real-time analytics
+
+	- Delta Live Tables
+	
+		- Automated and scalable streaming ingestion and transformation
+		- Workload-specific autoscaling
+		- Intelligent orchestration, error handling, and optimization
+
+	- ETL pipeline users face 3 challenges:
+		
+		- Need high quality, fresh data, in real time
+		- Slow queries and delayed access to data
+		- Spend most of the time writing and debugging code to manage the ETL lifecycle
+			
+	- Leverage AI to ensure robust and reliable ETL
+		
+		- Intelligent ETL for low latency
+		- Operational simplicity with automatic and optimzed auto-scaling
+		- Utilize AI for code recommendations and debugging the ETL pipeline
+		
+	- Intelligent optimizations for incremental ETL
+	
+		- Automatic and optimized incremental ingestion and transformations fo r ed-to-end ETL pipeline
+		- Ingelligently evaluate the best incremental strategy based on query plans and data
+		- Automatically apply the most efficient technique for incremental refresh
+		
+	- AI enhanced Autoscalling
+	
+		- Dynamically optimize compute
+		- Automatically adjust to changing streaming
+		- Built to handle streaming workloads
+		
+	- DatabricksIQ in action for ETL
+	
+		- AI-assisted ETL code recommendations
+		- AI-driven debugging and remediation
+		
+
+d. Data science & AI
+
+	- GenAI in production is difficult and expensive
+	
+		- Own your data and models - Improved privacy
+		- Built-in model monitoring
+		- Standarized operations to scale to production across use cases
+		- Cost-effective to build and deploy your own LLMs
+		
+	- DatabricksAI -> a data-centric AI Platform, optimized for Generative AI
+	
+		- GenAI
+			
+			- Custom models
+			- Model serving
+			- RAG
+			
+		- End-to-end AI
+			
+			- MLOps (MLflow)
+			- AutoML
+			- Monitoring
+			- Governance
+			
+	- DatabricksAI capabilities:
+	
+		- Prepare data -> Features Indexes -> Unity Catalog + Delta Lake -> Features, Indexes -> Use Existing Model or Build your Own -> AI Assets -> Serving in production
+		-> APIs, BI/SQL, ETL / streaming pipelines -> Logs -> Logs, metrics Features -> Governance, Lineage, Data Storage
+
+	- Databricks AI works for all AI models:
+	
+		- Deep learning
+		- Classic ML algorithms
+		- Proprietary LLMs
+		- Open source generative AI + LLMs
+		- Chain & agents
+
+
+*********************************************************
+Databricks Fundamentals test (Data Intelligence Platform)
+*********************************************************
+
+
+1)Which two challenges will a data organization likely face when migrating from a data warehouse to a data lake? Select two responses.
+
+Correct answer(s):
+increased security and privacy concerns
+increased data reliability issue
+
+2)Which three benefits are provided directly by the Databricks Data Intelligence Platform? Select three responses.
+
+Correct answer(s):
+Democratizing Data and AI
+Simplifying usage through natural language assistance
+Integrating AI end-to-end
+
+
+3)While the Databricks Data Intelligence Platform provides support for many types of data, analytics, and machine learning workloads,
+some organizations prefer to continue using other preferred vendors for use cases like data ingestion, data transformation, 
+business intelligence, and machine learning.
+
+Correct answer(s):
+Databricks can be integrated directly with a large number of Databricks partners.
+Databricks can use cloud service provider capabilities to efficiently share data with other data tools and platforms.
+
+
+4)Which three common problems within a data lake architecture can be solved by using a lakehouse architecture in your data management platform? 
+Select three responses.
+
+Correct answer(s):
+No schema enforcement or governance
+Lack of automatic data optimizations
+Lack of ACID transaction support
+
+
+5)One of the foundational technologies provided by the Databricks Data Intelligence Platform is an open-source, file-based storage format that 
+provides a number of benefits. These benefits include ACID transaction guarantees, scalable data and metadata handling, audit history and time travel, 
+table schema enforcement and schema evolution, support for deletes/updates/merges, and unified streaming and batch data processing.
+Which technology is being described in the above statement? Select one response.
+
+Correct answer(s):
+Delta Lake
+
+6)It can be challenging for a data management platform to provide both performance and scalability for all of its query-based workloads to the standards
+of a data warehouse and a data lake. As a result, Databricks has introduced a technology built atop Apache Spark to further speed up and scale these varied workloads.
+Which technology is being described in the above statement? Select one response.
+Which technology is being described in the above statement? Select one response.
+
+Correct answer(s):
+Photon
+
+7)How does the Databricks Data Intelligence Platform make data governance simpler? Select one response.
+
+Correct answer(s):
+Unity Catalog provides a single governance solution across workload types and clouds.
+
+
+8)Which two security features are made available in the Databricks Data Intelligence Platform by Unity Catalog? Select two responses.
+
+Correct answer(s):
+Fine-grained access control on data objects
+Single-source-of-truth identity management
+
+9)
+Data sharing has traditionally been performed by proprietary vendor solutions, SSH File Transfer Protocol (SFTP), or cloud-specific solutions.
+However, each of these sharing tools and solutions comes with its own set of limitations. As a result, Databricks helped to develop the solution, Delta Sharing.
+Which of the following describes Delta Sharing as a solution for data sharing? Select one response.
+
+Correct answer(s):
+Delta Sharing is a multicloud, open-source solution to securely and efficiently share live data from the lakehouse to any external system.
+
+10)The Databricks Data Intelligence Platform architecture consists of a control plane and a data plane.
+Which two resources exist within the Databricks control plane? Select two responses.
+
+Correct answer(s):
+Notebooks
+Cluster configurations
+
+11)Which two compute resources are available in the Databricks Data Intelligence Platform? Select two responses.
+
+Correct answer(s):
+Serverless Databricks SQL warehouses
+Classic clusters
+
+12)In which way do serverless compute resources differ from classic compute resources within the Databricks Data Intelligence Platform? Select one response
+
+Correct answer(s):
+They result in lower costs by not overprovisioning
+
+13)What do Databricks SQL users experience when using serverless Databricks SQL warehouses rather than classic Databricks SQL warehouses? Select one response.
+
+Correct answer(s):
+Expedited environment startup
+
+14)Unity Catalog offers improved data object governance and organization capabilities for data segregation.
+What is a positive result of using Unity Catalog to manage, organize, and segregate data objects? Select one response.
+
+Correct answer(s):
+Organizational structure and data architecture are maintained across workspaces
+
+15)Which Databricks Data Intelligence Platform service or capability provides a data warehousing experience to its users? Select one response.
+
+Correct answer(s):
+Databricks SQL
+
+16)A data architect is evaluating data warehousing solutions for their organization to use. As a part of this, the architect is 
+considering the Databricks Data Intelligence Platform.
+
+Which three options are benefits of using the Databricks Data Intelligence Platform for warehousing workloads? Select three responses.
+
+Correct answer(s):
+Auto-turning for optimization and reduced latency
+Predictive I/O for faster selective query performance
+Databricks Assistant to support in-the-moment query and data needs
+
+17)In the past, a lot of data engineering resources were allocated to the development of tooling and mechanisms for creating and managing data workloads. 
+In response, Databricks developed and released a declarative ETL framework so data engineers can focus on helping their organizations get value from their data.
+
+Which technology is being described above? Select one response.
+
+Correct answer(s):
+Delta Live Tables
+
+18)Many organizations use a variety of open source and proprietary tools for data orchestration, but these tools often have their own limitations.
+To address the orchestration needs of these organizations, Databricks developed Databricks Workflows.
+
+What is a benefit of using Databricks Workflows for orchestration purposes? Select one response.
+
+Correct answer(s):
+Databricks Workflows uses smart ETL (Extract, Transform, Load) processes and AI to find and fix problems.
+
+
+19)Which two statements describe how Delta Live Tables (DLT) in the Databricks Data Intelligence Platform support data streaming patterns? Select three responses.
+
+Correct answer(s):
+Through the use of simple SQL syntax, all data practitioners can ingest data continuously into the platform.
+Automatic ingestion scalability allows for high volumes of data to be handled incrementally instead of in large batches.
+
+20)Data organizations need specialized environments designed specifically for AI and machine learning workloads.
+
+Correct answer(s):
+Vector Search
+Mlflow
+Lakehouse Monitoring
+
